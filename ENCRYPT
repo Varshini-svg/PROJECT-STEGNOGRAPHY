@@ -1,0 +1,36 @@
+import cv2
+import os
+
+# Read the input image
+img = cv2.imread("C:\Users\varsh\Pictures\Screenshots\Screenshot 2025-02-25 204454.png")  
+# Replace with the correct image path
+
+# Take secret message and passcode as input from the user
+msg = input("ENTER SECRET MESSAGE: ")
+password = input("ENTER A PASSCODE: ")
+
+# Create dictionaries for character-to-ASCII and ASCII-to-character mapping
+d = {}  # Dictionary to store character to ASCII mapping
+
+for i in range(255):
+    d[chr(i)] = i  # Assign ASCII value to each character
+
+# Initialize pixel position variables
+m = 0
+n = 0
+z = 0
+
+# Encrypt and store message inside the image pixels
+for i in range(len(msg)):
+    img[n, m, z] = d[msg[i]]  # Store ASCII value of message character in pixel
+    n = n + 1  # Move to the next pixel row
+    m = m + 1  # Move to the next pixel column
+    z = (z + 1) % 3  # Cycle through RGB channels
+
+# Save the encrypted image
+cv2.imwrite("encryptedImage.jpg", img)
+
+# Open the encrypted image automatically (for Windows)
+os.system("start encryptedImage.jpg")  
+
+print("ENCRYPTION COMPLETE. MESSAGE HIDDEN INSIDE IMAGE.")
