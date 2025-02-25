@@ -1,0 +1,30 @@
+import cv2
+
+# Read the encrypted image
+img = cv2.imread("encryptedImage.jpg")  # Encrypted image path
+
+# Initialize variables for message extraction
+message = ""
+n = 0
+m = 0
+z = 0
+
+# Dictionary to store ASCII-to-character mapping
+c = {}  
+for i in range(255):
+    c[i] = chr(i)  # Assign character to each ASCII value
+
+# Take input passcode for decryption
+pas = input("ENTER PASSCODE FOR DECRYPTION: ")
+
+# Check if the entered passcode matches the original one
+if pas == password:
+    # Extract and reconstruct the hidden message
+    for i in range(len(msg)):  # Assuming length of message is known
+        message = message + c[img[n, m, z]]  # Retrieve ASCII value and convert to character
+        n = n + 1  # Move to the next pixel row
+        m = m + 1  # Move to the next pixel column
+        z = (z + 1) % 3  # Cycle through RGB channels
+    print("DECRYPTED MESSAGE:", message.upper())  # Print the retrieved message in uppercase
+else:
+    print("YOU ARE NOT AUTHORIZED")  # Print access denied message if passcode is incorrect
